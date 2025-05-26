@@ -49,8 +49,7 @@ export default async function SubdomainPage({
 
       <div className="flex-1 flex items-center justify-center">
         <div className="text-center">
-          <div className="text-9xl mb-6">{subdomainData.emoji}</div>
-          <h1 className="text-4xl font-bold tracking-tight text-gray-900">
+          <h1 className="text-4xl font-bold tracking-tight text-gray-900 mb-3">
             Welcome to {subdomain}.{rootDomain}
           </h1>
           <p className="mt-3 text-lg text-gray-600">

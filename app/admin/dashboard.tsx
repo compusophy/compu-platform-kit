@@ -10,7 +10,6 @@ import { rootDomain, protocol } from '@/lib/utils';
 
 type Tenant = {
   subdomain: string;
-  emoji: string;
   createdAt: number;
 };
 
@@ -48,21 +47,25 @@ function TenantGrid({
 }) {
   if (tenants.length === 0) {
     return (
-      <Card>
-        <CardContent className="py-8 text-center">
-          <p className="text-gray-500">No subdomains have been created yet.</p>
-        </CardContent>
-      </Card>
+      <div className="text-center py-12">
+        <p className="text-gray-500">No subdomains created yet.</p>
+        <Link
+          href={`${protocol}://${rootDomain}`}
+          className="text-blue-500 hover:underline mt-2 inline-block"
+        >
+          Create your first subdomain →
+        </Link>
+      </div>
     );
   }
 
   return (
-    <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
       {tenants.map((tenant) => (
         <Card key={tenant.subdomain}>
-          <CardHeader className="pb-2">
-            <div className="flex items-center justify-between">
-              <CardTitle className="text-xl">{tenant.subdomain}</CardTitle>
+          <CardHeader>
+            <CardTitle className="flex justify-between items-center">
+              <span className="truncate">{tenant.subdomain}</span>
               <form action={action}>
                 <input
                   type="hidden"
@@ -70,24 +73,23 @@ function TenantGrid({
                   value={tenant.subdomain}
                 />
                 <Button
+                  type="submit"
                   variant="ghost"
                   size="icon"
-                  type="submit"
                   disabled={isPending}
-                  className="text-gray-500 hover:text-gray-700 hover:bg-gray-50"
+                  className="h-8 w-8"
                 >
                   {isPending ? (
-                    <Loader2 className="h-5 w-5 animate-spin" />
+                    <Loader2 className="h-4 w-4 animate-spin" />
                   ) : (
-                    <Trash2 className="h-5 w-5" />
+                    <Trash2 className="h-4 w-4" />
                   )}
                 </Button>
               </form>
-            </div>
+            </CardTitle>
           </CardHeader>
           <CardContent>
             <div className="flex items-center justify-between">
-              <div className="text-4xl">{tenant.emoji}</div>
               <div className="text-sm text-gray-500">
                 Created: {new Date(tenant.createdAt).toLocaleDateString()}
               </div>
